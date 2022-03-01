@@ -54,6 +54,16 @@ const userModel = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+
+    address: {
+      type: String,
+      default: "",
+    },
+
+    relationshipStatus: {
+      type: Number,
+      enum: [1, 2, 3],
+    },
   },
   { timestamps: true }
 );

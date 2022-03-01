@@ -24,7 +24,7 @@ ROUTER.post("/register", async (req, res) => {
     const user = await newUser.save();
     sendResponse(res, user, "user added successfully", true, 200);
   } catch (err) {
-    sendError(res, "", err || "unknown error occurred");
+    return sendError(res, "", err || "unknown error occurred");
   }
 });
 
@@ -39,12 +39,12 @@ ROUTER.post("/login", async (req, res) => {
       user.password
     );
     if (!validPassword) {
-      sendError(res, "", "invalid credentials");
+      return sendError(res, "", "invalid credentials");
     }
 
     sendResponse(res, user, "Welcome back friend", true, 200);
   } catch (err) {
-    sendError(res, "", err || "unknown error occurred");
+    return sendError(res, "", err || "unknown error occurred");
   }
 });
 
