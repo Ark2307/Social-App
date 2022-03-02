@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const { sendResponse } = require("../app/controllers");
 const Post = require("../app/models/Posts");
+const User = require("../app/models/Users");
 
 const ROUTER = new Router();
 
@@ -61,7 +62,36 @@ ROUTER.put("/:id/like", async (req, res) => {
 });
 
 // get a post
+ROUTER.get("/:id", async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    sendResponse(res, post, "Post found", true, 200);
+  } catch (error) {
+    res.status(500).json(err);
+  }
+});
 
 // get timeline posts
+ROUTER.get("/timeline/wall", async (req, res) => {
+  try {
+    const user = await User.findById(req.body.userId);
+    const userPosts = await Post.find({ userId: user._id });
+    const visiblePosts = await Promise.all(
+      user.following.map((index) => {
+        return Post.find({ userId: index });
+      })
+    );
+
+    sendResponse(
+      res,
+      userPosts.concat(...visiblePosts),
+      "Posts loaded",
+      true,
+      200
+    );
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
 
 module.exports = ROUTER;
