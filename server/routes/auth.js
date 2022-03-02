@@ -1,4 +1,4 @@
-const { Router, response } = require("express");
+const { Router } = require("express");
 const { sendResponse, sendError } = require("../app/controllers");
 const User = require("../app/models/Users");
 const bcyrpt = require("bcrypt");

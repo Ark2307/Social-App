@@ -1,8 +1,7 @@
-const { Router, response } = require("express");
+const { Router } = require("express");
 const { sendResponse } = require("../app/controllers");
 const User = require("../app/models/Users");
 const bcrypt = require("bcrypt");
-const router = require("./Router");
 
 const ROUTER = new Router();
 
