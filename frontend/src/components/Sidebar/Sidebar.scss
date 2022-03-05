@@ -18,10 +18,15 @@
         display: flex;
         align-items: center;
         margin-bottom: 10px;
+        cursor: pointer;
 
         .sidebarIcon {
           margin: 15px;
           font-size: 22px;
+        }
+
+        &:hover {
+          background-color: rgba(250, 208, 157, 0.912);
         }
       }
     }
@@ -56,6 +61,7 @@
         border-radius: 50%;
         object-fit: cover;
         margin-right: 9px;
+        cursor: pointer;
       }
     }
   }
