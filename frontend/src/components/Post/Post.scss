@@ -17,9 +17,9 @@
         align-items: center;
 
         .postOwnerPic {
-          height: 32px;
-          width: 32px;
-          border-radius: 50;
+          height: 38px;
+          width: 38px;
+          border-radius: 50%;
           object-fit: cover;
         }
 
@@ -46,7 +46,6 @@
 
       .postImage {
         margin-top: 20px;
-        max-height: 40vh;
         width: 50vw;
         object-fit: cover;
       }

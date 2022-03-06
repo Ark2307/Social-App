@@ -5,8 +5,7 @@ import { MdGroups } from "react-icons/md";
 import { AiFillHome, AiFillMessage, AiFillVideoCamera } from "react-icons/ai";
 import { BsFillCalendar2EventFill } from "react-icons/bs";
 import { VscFeedback } from "react-icons/vsc";
-
-import friend from "../../images/virat.jfif";
+import { Users } from "../../data/user";
 
 function Sidebar() {
   return (
@@ -47,40 +46,16 @@ function Sidebar() {
         <button className="sidebarButton">Show More</button>
         <hr className="sidebarRow" />
         <ul className="showFriend">
-          <li className="friendItem">
-            <img className="friendProfile" src={friend} alt="profile" />
-            <span className="friendName">Virat Kohli</span>
-          </li>
-
-          <li className="friendItem">
-            <img className="friendProfile" src={friend} alt="profile" />
-            <span className="friendName">Virat Kohli</span>
-          </li>
-
-          <li className="friendItem">
-            <img className="friendProfile" src={friend} alt="profile" />
-            <span className="friendName">Virat Kohli</span>
-          </li>
-
-          <li className="friendItem">
-            <img className="friendProfile" src={friend} alt="profile" />
-            <span className="friendName">Virat Kohli</span>
-          </li>
-
-          <li className="friendItem">
-            <img className="friendProfile" src={friend} alt="profile" />
-            <span className="friendName">Virat Kohli</span>
-          </li>
-
-          <li className="friendItem">
-            <img className="friendProfile" src={friend} alt="profile" />
-            <span className="friendName">Virat Kohli</span>
-          </li>
-
-          <li className="friendItem">
-            <img className="friendProfile" src={friend} alt="profile" />
-            <span className="friendName">Virat Kohli</span>
-          </li>
+          {Users.map((user) => (
+            <li className="friendItem">
+              <img
+                className="friendProfile"
+                src={user.profilePic}
+                alt="profile"
+              />
+              <span className="friendName">{user.username}</span>
+            </li>
+          ))}
         </ul>
       </div>
     </div>
