@@ -1,12 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Post.scss";
-import icon1 from "../../images/like.jfif";
 import { FiMoreVertical } from "react-icons/fi";
-import { Users } from "../../data/user";
+import axios from "axios";
 
 function Post({ post }) {
   const [reacts, setReacts] = useState(post.reacts);
   const [isLiked, setIsLiked] = useState(false);
+  const [user, setUser] = useState({});
+
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const res = await axios.get(`users/${post.userId}`);
+      console.log(res);
+      setUser(res.data.responseData);
+    };
+    fetchUser();
+  }, []);
 
   const handleLike = () => {
     setIsLiked(!isLiked);
@@ -20,14 +31,10 @@ function Post({ post }) {
           <div className="headerLeft">
             <img
               className="postOwnerPic"
-              src={
-                Users.filter((user) => user.id === post?.userId)[0].profilePic
-              }
+              src={user.ProfilePic || PF + "noAvatar.png"}
               alt="profile"
             />
-            <span className="postOwnerName">
-              {Users.filter((user) => user.id === post?.userId)[0].username}
-            </span>
+            <span className="postOwnerName">{user.username}</span>
             <span className="postDate">{post.date}</span>
           </div>
           <div className="headerRight">
@@ -44,7 +51,7 @@ function Post({ post }) {
           <div className="footerLeft">
             <img
               className="reactIcon"
-              src={icon1}
+              src={PF + "like.jfif"}
               onClick={handleLike}
               alt="icon"
             />

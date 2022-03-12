@@ -36,7 +36,6 @@ const userModel = new mongoose.Schema(
 
     description: {
       type: String,
-      default: "",
       max: 150,
     },
 
@@ -55,9 +54,19 @@ const userModel = new mongoose.Schema(
       default: false,
     },
 
-    address: {
+    city: {
       type: String,
-      default: "",
+      max: 50,
+    },
+
+    state: {
+      type: String,
+      max: 50,
+    },
+
+    country: {
+      type: String,
+      max: 50,
     },
 
     relationshipStatus: {

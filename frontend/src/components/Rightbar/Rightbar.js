@@ -1,34 +1,36 @@
 import React from "react";
 import "./Rightbar.scss";
-import pacman from "../../images/pacman.jfif";
-import gift from "../../images/gift.jfif";
 
 import { Users } from "../../data/user";
+import OnlineFriend from "../OnlineFriend/OnlineFriend";
 
 function Rightbar({ profile }) {
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   function HomeRightbar() {
     return (
       <div className="rightbar">
         <div className="rightbarWrapper">
           <div className="birthdayContainer">
-            <img className="birthdayImage" src={gift} alt="giftBox" />
+            <img
+              className="birthdayImage"
+              src={PF + "gift.jpg"}
+              alt="giftBox"
+            />
             <span className="birthdayText">
               <b>Pola Foster</b> and <b>3 other friends</b> have a birthday
               today.
             </span>
           </div>
 
-          <img className="developerPhoto" src={pacman} alt="pacman" />
+          <img
+            className="developerPhoto"
+            src={PF + "pacman.jpg"}
+            alt="pacman"
+          />
           <h4 className="textTitle">Online Friends</h4>
           <ul className="onlineFriendList">
             {Users.map((user) => (
-              <li className="onlineFriend">
-                <div className="friendContainer">
-                  <img className="onlineProfile" src={user.profilePic} alt="" />
-                  <span className="online" />
-                </div>
-                <span className="friendUsername">{user.username}</span>
-              </li>
+              <OnlineFriend key={user.id} user={user} />
             ))}
           </ul>
         </div>

@@ -49,21 +49,6 @@
     padding: 0;
     margin: 0;
     list-style: none;
-
-    .friendItem {
-      display: flex;
-      align-items: center;
-      margin-bottom: 18px;
-
-      .friendProfile {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        object-fit: cover;
-        margin-right: 9px;
-        cursor: pointer;
-      }
-    }
   }
 }
 

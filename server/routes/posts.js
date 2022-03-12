@@ -9,7 +9,7 @@ const ROUTER = new Router();
 ROUTER.post("/create", async (req, res) => {
   const newPost = new Post(req.body);
   try {
-    const savedPost = new newPost.save();
+    const savedPost = await newPost.save();
     sendResponse(res, savedPost, "Post created", true, 200);
   } catch (err) {
     res.status(500).json(err);
@@ -72,9 +72,9 @@ ROUTER.get("/:id", async (req, res) => {
 });
 
 // get timeline posts
-ROUTER.get("/timeline/wall", async (req, res) => {
+ROUTER.get("/timeline/:userId", async (req, res) => {
   try {
-    const user = await User.findById(req.body.userId);
+    const user = await User.findById(req.params.userId);
     const userPosts = await Post.find({ userId: user._id });
     const visiblePosts = await Promise.all(
       user.following.map((index) => {

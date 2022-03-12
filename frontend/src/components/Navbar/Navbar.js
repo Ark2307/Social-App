@@ -5,13 +5,19 @@ import { FiSearch } from "react-icons/fi";
 import { IoMdNotifications } from "react-icons/io";
 import { BsFillChatDotsFill, BsPersonFill } from "react-icons/bs";
 
-import photo1 from "../../images/download.jfif";
+import { Link } from "react-router-dom";
 
 function Navbar() {
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+
   return (
     <div className="navContainer">
       <div className="leftSide">
-        <span className="appName">AryanBook</span>
+        <span className="appName">
+          <Link className="appLink" to="/">
+            AryanBook
+          </Link>
+        </span>
       </div>
 
       <div className="center">
@@ -44,7 +50,7 @@ function Navbar() {
           </div>
         </div>
 
-        <img src={photo1} alt="dp" className="navbarProfile " />
+        <img src={PF + "noAvatar.png"} alt="dp" className="navbarProfile " />
       </div>
     </div>
   );

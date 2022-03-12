@@ -3,12 +3,11 @@ import Navbar from "../../components/Navbar/Navbar";
 import Rightbar from "../../components/Rightbar/Rightbar";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Wall from "../../components/Wall/Wall";
-import download from "../../images/download.jfif";
-import download1 from "../../images/download1.jfif";
 
 import "./Profile.scss";
 
 function Profile() {
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   return (
     <>
       <Navbar />
@@ -18,8 +17,12 @@ function Profile() {
         <div className="profileRight">
           <div className="rightHeader">
             <div className="cover">
-              <img className="coverImage" src={download} alt="" />
-              <img className="profileImage" src={download1} alt="" />
+              <img className="coverImage" src={PF + "noAvatar.png"} alt="" />
+              <img
+                className="profileImage"
+                src={PF + "RohitCover.jpg"}
+                alt=""
+              />
             </div>
 
             <div className="profileInfo">

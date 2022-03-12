@@ -6,6 +6,7 @@ import { AiFillHome, AiFillMessage, AiFillVideoCamera } from "react-icons/ai";
 import { BsFillCalendar2EventFill } from "react-icons/bs";
 import { VscFeedback } from "react-icons/vsc";
 import { Users } from "../../data/user";
+import FriendList from "../FriendList/FriendList";
 
 function Sidebar() {
   return (
@@ -47,14 +48,7 @@ function Sidebar() {
         <hr className="sidebarRow" />
         <ul className="showFriend">
           {Users.map((user) => (
-            <li className="friendItem">
-              <img
-                className="friendProfile"
-                src={user.profilePic}
-                alt="profile"
-              />
-              <span className="friendName">{user.username}</span>
-            </li>
+            <FriendList key={user.id} user={user} />
           ))}
         </ul>
       </div>
