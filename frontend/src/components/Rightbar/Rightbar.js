@@ -3,8 +3,9 @@ import "./Rightbar.scss";
 
 import { Users } from "../../data/user";
 import OnlineFriend from "../OnlineFriend/OnlineFriend";
+import Following from "../Following/Following";
 
-function Rightbar({ profile }) {
+function Rightbar({ user }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   function HomeRightbar() {
     return (
@@ -45,28 +46,27 @@ function Rightbar({ profile }) {
         <div className="rightbarInfo">
           <div className="rightbarInfoItem">
             <span className="rightbarInfoKey">City:</span>
-            <span className="rightbarInfoValue">New York</span>
+            <span className="rightbarInfoValue">{user.city}</span>
           </div>
           <div className="rightbarInfoItem">
             <span className="rightbarInfoKey">From:</span>
-            <span className="rightbarInfoValue">Madrid</span>
+            <span className="rightbarInfoValue">{user.country}</span>
           </div>
           <div className="rightbarInfoItem">
             <span className="rightbarInfoKey">Relationship:</span>
-            <span className="rightbarInfoValue">Single</span>
+            <span className="rightbarInfoValue">
+              {user.relationshipStatus === 1
+                ? "Single"
+                : user.relationshipStatus === 2
+                ? "In a relationship"
+                : "Married"}
+            </span>
           </div>
         </div>
         <h4 className="rightbarTitle">User friends</h4>
         <div className="rightbarFollowings">
           {Users.map((user) => (
-            <div className="rightbarFollowing">
-              <img
-                src={user.profilePic}
-                alt=""
-                className="rightbarFollowingImg"
-              />
-              <span className="rightbarFollowingName">{user.username}</span>
-            </div>
+            <Following key={user.id} user={user} />
           ))}
         </div>
       </>
@@ -76,7 +76,7 @@ function Rightbar({ profile }) {
   return (
     <div className="rightbar">
       <div className="rightbarWrapper">
-        {profile ? <ProfileRightbar /> : <HomeRightbar />}
+        {user ? <ProfileRightbar /> : <HomeRightbar />}
       </div>
     </div>
   );

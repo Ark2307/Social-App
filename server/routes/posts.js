@@ -66,7 +66,7 @@ ROUTER.get("/:id", async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
     sendResponse(res, post, "Post found", true, 200);
-  } catch (error) {
+  } catch (err) {
     res.status(500).json(err);
   }
 });
@@ -89,6 +89,17 @@ ROUTER.get("/timeline/:userId", async (req, res) => {
       true,
       200
     );
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
+//users post
+ROUTER.get("/profile/:username", async (req, res) => {
+  try {
+    const user = await User.findOne({ username: req.params.username });
+    const posts = await Post.find({ userId: user._id });
+    sendResponse(res, posts, "post of user loaded", true, 200);
   } catch (error) {
     res.status(500).json(error);
   }

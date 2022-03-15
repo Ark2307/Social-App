@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./Post.scss";
 import { FiMoreVertical } from "react-icons/fi";
+
+import { Link } from "react-router-dom";
 import axios from "axios";
+import { format } from "timeago.js";
 
 function Post({ post }) {
-  const [reacts, setReacts] = useState(post.reacts);
+  const [reacts, setReacts] = useState(post.likes.length);
   const [isLiked, setIsLiked] = useState(false);
   const [user, setUser] = useState({});
 
@@ -12,12 +15,12 @@ function Post({ post }) {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const res = await axios.get(`users/${post.userId}`);
-      console.log(res);
+      const res = await axios.get(`users?userId=${post.userId}`);
+      //console.log(res);
       setUser(res.data.responseData);
     };
     fetchUser();
-  }, []);
+  }, [post.userId]);
 
   const handleLike = () => {
     setIsLiked(!isLiked);
@@ -29,13 +32,15 @@ function Post({ post }) {
       <div className="postWrapper">
         <div className="postHeader">
           <div className="headerLeft">
-            <img
-              className="postOwnerPic"
-              src={user.ProfilePic || PF + "noAvatar.png"}
-              alt="profile"
-            />
+            <Link to={`${user.username}`}>
+              <img
+                className="postOwnerPic"
+                src={PF + user.profilePic || PF + "noAvatar.png"}
+                alt="profile"
+              />
+            </Link>
             <span className="postOwnerName">{user.username}</span>
-            <span className="postDate">{post.date}</span>
+            <span className="postDate">{format(post.createdAt)}</span>
           </div>
           <div className="headerRight">
             <FiMoreVertical className="iconOptions" />
@@ -44,14 +49,14 @@ function Post({ post }) {
 
         <div className="postCenter">
           <span className="postDescription">{post.desc}</span>
-          <img className="postImage" src={post.photo} alt="post" />
+          <img className="postImage" src={PF + post.img} alt="post" />
         </div>
 
         <div className="postFooter">
           <div className="footerLeft">
             <img
               className="reactIcon"
-              src={PF + "like.jfif"}
+              src={`${PF}like.jfif`}
               onClick={handleLike}
               alt="icon"
             />
