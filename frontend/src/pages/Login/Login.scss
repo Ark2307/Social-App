@@ -66,6 +66,13 @@
           font-size: 20px;
           font-weight: 500;
           cursor: pointer;
+          &:focus {
+            outline: none;
+          }
+
+          &:disabled {
+            cursor: not-allowed;
+          }
         }
 
         .loginText {
@@ -84,6 +91,10 @@
           font-size: 20px;
           font-weight: 500;
           cursor: pointer;
+
+          &:focus {
+            outline: none;
+          }
 
           .loginLink {
             text-decoration: none;

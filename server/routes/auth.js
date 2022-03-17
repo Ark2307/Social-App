@@ -42,7 +42,8 @@ ROUTER.post("/login", async (req, res) => {
       return sendError(res, "", "invalid credentials");
     }
 
-    sendResponse(res, user, "Welcome back friend", true, 200);
+    const { password, updatedAt, createdAt, __v, ...other } = user._doc;
+    sendResponse(res, other, "Welcome back friend", true, 200);
   } catch (err) {
     return sendError(res, "", err || "unknown error occurred");
   }
