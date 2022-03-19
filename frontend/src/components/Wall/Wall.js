@@ -9,9 +9,7 @@ function Wall({ username }) {
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     const fetchPosts = async () => {
-      const res = username
-        ? await axios.get("post/profile/" + username)
-        : await axios.get("post/timeline/6226cb74bf164afb1a17c432");
+      const res = await axios.get("post/profile/" + username);
       //console.log(res.data);
       setPosts(res.data.responseData);
     };
