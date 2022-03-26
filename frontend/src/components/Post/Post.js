@@ -61,7 +61,7 @@ function Post({ post }) {
         </div>
 
         <div className="postCenter">
-          <span className="postDescription">{post.desc}</span>
+          <span className="postDescription">{post.description}</span>
           <img className="postImage" src={PF + post.img} alt="post" />
         </div>
 
