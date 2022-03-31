@@ -1,12 +1,61 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Rightbar.scss";
 
 import { Users } from "../../data/user";
 import OnlineFriend from "../OnlineFriend/OnlineFriend";
 import Following from "../Following/Following";
+import axios from "axios";
+import { AuthContext } from "../../context/AuthContext";
+import { AiOutlineUserAdd, AiOutlineUserDelete } from "react-icons/ai";
 
 function Rightbar({ user }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const [friends, setFriends] = useState([]);
+
+  const { user: currentUser, dispatch } = useContext(AuthContext);
+
+  const [isFollow, setIsFollow] = useState(
+    currentUser.following.includes(user?.id)
+  );
+
+  useEffect(() => {
+    const getFriends = async () => {
+      try {
+        const friendList = await axios.get(
+          "http://localhost:8080/api/users/friend/".concat(`${user._id}`)
+        );
+        //console.log(friendList);
+        setFriends(friendList.data.responseData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getFriends();
+  }, [user]);
+
+  const handleFollow = async () => {
+    try {
+      if (isFollow) {
+        await axios.put(
+          "http://localhost:8080/api/users/" + user._id + "/unfollow",
+          { userId: currentUser._id }
+        );
+        dispatch({ type: "UN_FOLLOW", payload: user._id });
+      } else {
+        await axios.put(
+          "http://localhost:8080/api/users/" + user._id + "/follow",
+          { userId: currentUser._id }
+        );
+        dispatch({ type: "FOLLOW", payload: user._id });
+      }
+
+      setIsFollow(!isFollow);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   function HomeRightbar() {
     return (
       <div className="rightbar">
@@ -42,6 +91,12 @@ function Rightbar({ user }) {
   function ProfileRightbar() {
     return (
       <>
+        {user.username !== currentUser.username && (
+          <button className="followButton" onClick={handleFollow}>
+            {isFollow ? "UnFollow" : "Follow"}
+            {isFollow ? <AiOutlineUserDelete /> : <AiOutlineUserAdd />}
+          </button>
+        )}
         <h4 className="rightbarTitle">User information</h4>
         <div className="rightbarInfo">
           <div className="rightbarInfoItem">
@@ -65,8 +120,8 @@ function Rightbar({ user }) {
         </div>
         <h4 className="rightbarTitle">User friends</h4>
         <div className="rightbarFollowings">
-          {Users.map((user) => (
-            <Following key={user.id} user={user} />
+          {friends.map((user) => (
+            <Following key={user._id} user={user} />
           ))}
         </div>
       </>

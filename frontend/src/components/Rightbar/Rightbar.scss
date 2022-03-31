@@ -78,3 +78,18 @@
   flex-wrap: wrap;
   justify-content: space-between;
 }
+
+.followButton {
+  margin-top: 30px;
+  margin-bottom: 15px;
+  border: none;
+  background-color: rgb(58, 248, 58);
+  color: white;
+  border-radius: 8px;
+  padding: 5px 10px;
+  align-items: center;
+
+  &:focus {
+    outline: none;
+  }
+}

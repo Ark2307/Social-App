@@ -59,6 +59,29 @@ ROUTER.get("/", async (req, res) => {
   }
 });
 
+//fetch all followers
+ROUTER.get("/friend/:userId", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userId);
+    const friends = await Promise.all(
+      user.following.map((friendId) => {
+        return User.findById(friendId);
+      })
+    );
+
+    let friendList = [];
+    friends.map((friend) => {
+      const { _id, username, profilePic } = friend;
+      friendList.push({ _id, username, profilePic });
+    });
+
+    sendResponse(res, friendList, "FriendList fetched", true, 200);
+  } catch (error) {
+    //console.log(error);
+    res.status(500).json(error);
+  }
+});
+
 //follow user
 ROUTER.put("/:id/follow", async (req, res) => {
   if (req.body.userId !== req.params.id) {

@@ -1,6 +1,6 @@
 .upload {
-  height: 175px;
-  border-radius: 13p;
+  width: 100%;
+  border-radius: 13px;
   -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
   box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
 
@@ -32,6 +32,25 @@
     .uploadHr {
       margin: 18px;
     }
+
+    .uploadImageTop {
+      padding: 0 20px 10px 20px;
+      position: relative;
+
+      .shareImg {
+        width: 100%;
+        object-fit: cover;
+      }
+
+      .cancelImage {
+        position: absolute;
+        top: 0;
+        right: 20px;
+        cursor: pointer;
+        opacity: 0.75;
+      }
+    }
+
     .uploadFooter {
       display: flex;
       align-items: center;

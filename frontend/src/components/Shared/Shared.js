@@ -2,6 +2,7 @@ import React, { useContext, useRef, useState } from "react";
 import "./Shared.scss";
 import { BsEmojiSunglasses, BsTag, BsUpload } from "react-icons/bs";
 import { BiMap } from "react-icons/bi";
+import { ImCancelCircle } from "react-icons/im";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
 
@@ -27,14 +28,14 @@ function Shared() {
       data.append("name", fileName);
       newPost.img = fileName;
       try {
-        await axios.post("/upload", data);
+        await axios.post("http://localhost:8080/api/upload", data);
       } catch (error) {
         console.log(error);
       }
     }
 
     try {
-      await axios.post("/post/create", newPost);
+      await axios.post("http://localhost:8080/api/post/create", newPost);
       window.location.reload();
     } catch (error) {}
   };
@@ -57,6 +58,17 @@ function Shared() {
         </div>
 
         <hr className="uploadHr" />
+
+        {file && (
+          <div className="uploadImageTop">
+            <img className="shareImg" src={URL.createObjectURL(file)} alt="" />
+            <ImCancelCircle
+              className="cancelImage"
+              onClick={() => setFile(null)}
+            />
+          </div>
+        )}
+
         <form className="uploadFooter" onSubmit={handleSubmit}>
           <div className="uploadOptions">
             <label htmlFor="file" className="uploadItem">

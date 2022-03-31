@@ -22,7 +22,9 @@ function Post({ post }) {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const res = await axios.get(`users?userId=${post.userId}`);
+      const res = await axios.get(
+        "http://localhost:8080/api/".concat(`users?userId=${post.userId}`)
+      );
       //console.log(res);
       setUser(res.data.responseData);
     };
@@ -31,7 +33,9 @@ function Post({ post }) {
 
   const handleLike = () => {
     try {
-      axios.put("/post/" + post._id + "/like", { userId: currentUser._id });
+      axios.put("http://localhost:8080/api/post/" + post._id + "/like", {
+        userId: currentUser._id,
+      });
     } catch (error) {}
 
     setIsLiked(!isLiked);

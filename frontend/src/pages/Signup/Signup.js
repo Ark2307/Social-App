@@ -24,7 +24,7 @@ function Signup() {
       };
 
       try {
-        await axios.post("/auth/register", user);
+        await axios.post("http://localhost:8080/api/auth/register", user);
         navigate("/login");
       } catch (error) {
         console.log(error);
